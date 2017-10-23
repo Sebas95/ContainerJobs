@@ -1,10 +1,6 @@
 sudo docker run -ti centos:7 bash
 
 
-ctrl + alt + t
-cd nginx_docker/
-
-
 
 sudo docker images
 
@@ -17,11 +13,11 @@ sudo docker run -dit sebas/server:2.0
 sudo docker rmi 4534535 -f
 
 
-/var/lib/docker/volumes/
+cd /var/lib/docker/volumes/volumen_imagenes
 
 
 sudo docker volume create volumen_imagenes
 
 sudo docker build -t sebas/server:2.0 .
-sudo docker run -v volumen_imagenes:/carpetaDocker sebas/server:2.0
+sudo docker run -it -v volumen_imagenes:/carpetaDocker sebas/server:2.0
 
