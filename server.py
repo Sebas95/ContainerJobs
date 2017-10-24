@@ -20,42 +20,43 @@ def most_frequent_colour(image):
     return most_frequent_pixel
 
 def classifyImageInFolder(nameOfFile):
+    	if(not(nameOfFile == "salirsalir")):
 
-	if not os.path.exists("carpetaDocker/container1"):
-		os.makedirs("carpetaDocker/container1");
+		if not os.path.exists("carpetaDocker/container1"):
+			os.makedirs("carpetaDocker/container1");
 	
-	carpR= "carpetaDocker/container1/R";
-	carpG= "carpetaDocker/container1/G";
-	carpB= "carpetaDocker/container1/B";
-	carpN= "carpetaDocker/container1/not_trusted";
-	if not os.path.exists(carpR):
-		os.makedirs(carpR);
-	if not os.path.exists(carpG):
-		os.makedirs(carpG);
-	if not os.path.exists(carpB):
-		os.makedirs(carpB);
-	if not os.path.exists(carpN):
-		os.makedirs(carpN);
+		carpR= "carpetaDocker/container1/R";
+		carpG= "carpetaDocker/container1/G";
+		carpB= "carpetaDocker/container1/B";
+		carpN= "carpetaDocker/container1/not_trusted";
+		if not os.path.exists(carpR):
+			os.makedirs(carpR);
+		if not os.path.exists(carpG):
+			os.makedirs(carpG);
+		if not os.path.exists(carpB):
+			os.makedirs(carpB);
+		if not os.path.exists(carpN):
+			os.makedirs(carpN);
 
 	
-	im = Image.open(nameOfFile);
-	(cont,pixel) = most_frequent_colour(im);
-	#print pixel;
+		im = Image.open(nameOfFile);
+		(cont,pixel) = most_frequent_colour(im);
+		#print pixel;
 
-	r = pixel[0];
-	g = pixel[1];
-	b = pixel[2];
+		r = pixel[0];
+		g = pixel[1];
+		b = pixel[2];
 
 
-	if ((r>g) and (r>b)):
-		#print "red";
-		im.save( carpR +"/" + nameOfFile)
-	elif((g>r) and (g>b)):
-		#print "green";
-		im.save( carpG +"/" + nameOfFile)
-	else:
-		#print "blue";
-		im.save( carpB +"/" + nameOfFile)
+		if ((r>g) and (r>b)):
+			#print "red";
+			im.save( carpR +"/" + nameOfFile)
+		elif((g>r) and (g>b)):
+			#print "green";
+			im.save( carpG +"/" + nameOfFile)
+		else:
+			#print "blue";
+			im.save( carpB +"/" + nameOfFile)
 
 
 
@@ -89,8 +90,7 @@ while serverRun:
             while True:
                 
                 data = connection.recv(1024)
-                if (data == "salir"):
-                    print data + "."
+                if (name == "salir"):
                     serverRun = False
                     wait = False;
                     break
