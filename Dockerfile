@@ -5,4 +5,5 @@ RUN yum install -y net-tools
 RUN yum install -y libjpeg-devel
 RUN yum install -y python-imaging numpy 
 ADD server.py ./
+ADD configuracion.config ./
 CMD ["python","server.py"]

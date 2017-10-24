@@ -3,6 +3,7 @@ import sys
 from PIL import Image
 import numpy
 import os
+import shutil 
 
 def most_frequent_colour(image):
 
@@ -14,12 +15,18 @@ def most_frequent_colour(image):
     for count, colour in pixels:
         if count > most_frequent_pixel[0]:
             most_frequent_pixel = (count, colour)
-
-   
-
     return most_frequent_pixel
 
-def classifyImageInFolder(nameOfFile):
+
+def validarIp(ip_connected):
+	file = open("carpetaDocker/configuracion.config", "r") 
+	lista_ips = file.readlines() 
+	for ip in lista_ips:
+		if ((ip_connected[0]+ "\n" ) == ip):
+			return True	
+	return False
+
+def classifyImageInFolder(nameOfFile,client_address):
     	if(not(nameOfFile == "salirsalir")):
 
 		if not os.path.exists("carpetaDocker/container1"):
@@ -46,19 +53,18 @@ def classifyImageInFolder(nameOfFile):
 		r = pixel[0];
 		g = pixel[1];
 		b = pixel[2];
-
-
-		if ((r>g) and (r>b)):
-			#print "red";
+		
+		if (not (validarIp(client_address))): #save in not trusted
+			im.save( carpN +"/" + nameOfFile)
+		elif ((r>g) and (r>b)):
 			im.save( carpR +"/" + nameOfFile)
 		elif((g>r) and (g>b)):
-			#print "green";
 			im.save( carpG +"/" + nameOfFile)
 		else:
-			#print "blue";
 			im.save( carpB +"/" + nameOfFile)
 
 
+	 
 
 #------------------------ Create a TCP/IP socket-------------------
 		
@@ -69,7 +75,8 @@ server_address = (ip, 10000)
 print "Ip: " +ip
 print "iniciando socket con HOST2"
 sock.bind(server_address)
-
+os.remove("carpetaDocker/configuracion.config")
+shutil.move("configuracion.config", "carpetaDocker")
 # Listen for incoming connections
 sock.listen(1)
 serverRun = True
@@ -85,7 +92,6 @@ while serverRun:
             name = connection.recv(1024)
             lista = name.split("/")
 	    name = lista[len(lista)-1]
-            print name
             f = open(name, "wb")
             #print >>sys.stderr, 'connection from', client_address
             while True:
@@ -103,7 +109,7 @@ while serverRun:
                     connection.send("listo")
                     f.close()
                     #enviar a las capertas-------
-                    classifyImageInFolder(name)
+                    classifyImageInFolder(name,client_address)
                     print("Imagen procesada")
                     wait = False;
                     break;
@@ -111,3 +117,5 @@ while serverRun:
         finally:
             # Clean up the connection
             connection.close()
+
+print("host 2 desconectado")
