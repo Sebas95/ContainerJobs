@@ -33,8 +33,7 @@ while True:
                 print "Imagen enviada"
                 
                 file.close()
-                #message = sock.recv(100)     
-                #print message
+               
                 
         finally:
             sock.close()
