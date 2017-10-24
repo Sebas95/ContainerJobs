@@ -89,15 +89,16 @@ while serverRun:
     #print >>sys.stderr, 'waiting for a connection'
     while wait == True:  
         try:
-            name = connection.recv(1024)
-            lista = name.split("/")
+            ruta = connection.recv(1024)
+	    ruta2 = ruta
+            lista = ruta2.split("/")
 	    name = lista[len(lista)-1]
             f = open(name, "wb")
             #print >>sys.stderr, 'connection from', client_address
             while True:
                 
                 data = connection.recv(1024)
-                if (name == "salir"):
+                if (ruta == "salirsalir"):
                     serverRun = False
                     wait = False;
                     break
