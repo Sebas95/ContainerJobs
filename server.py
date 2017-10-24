@@ -83,8 +83,9 @@ while serverRun:
     while wait == True:  
         try:
             name = connection.recv(1024)
+            lista = name.split("/")
+	    name = lista[len(lista)-1]
             print name
-            #f = open("copy_"+name, "wb")
             f = open(name, "wb")
             #print >>sys.stderr, 'connection from', client_address
             while True:
