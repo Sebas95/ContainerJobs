@@ -6,17 +6,18 @@ while True:
         # Create a TCP/IP socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Connect the socket to the port where the server is listening
-        server_address = ('localhost', 10011)
+        server_address = ('localhost', 10000)
         sock.connect(server_address)
         try:
                
                 
                 print "Ingrese la ruta de la imagen"
                 ruta = raw_input("")
+                sock.sendall(ruta)
                 if (ruta == "salir"):
                         sock.sendall("salir")
                         break
-                file = open("/home/sebastian95/Documents/GitHub/ContainerJobs/forest.jpg", "rb")
+                file = open(ruta, "rb")
                 # Send data
                 content = file.read(1024)
                 while True:
@@ -26,7 +27,7 @@ while True:
                         else:
                                 print "Enviando imagen ........"
                                 break
-                                     
+                            
                 print "Imagen enviada"
                 
                 file.close()
