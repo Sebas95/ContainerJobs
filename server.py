@@ -25,6 +25,10 @@ while serverRun:
             #print >>sys.stderr, 'connection from', client_address
             while True:
                 data = connection.recv(1024)
+                if (data == "salir"):
+                    serverRun = False
+                    wait = False;
+                    break
                 if data:
                     f.write(data)
                 else:

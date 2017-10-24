@@ -14,6 +14,7 @@ while True:
                 print "Ingrese la ruta de la imagen"
                 ruta = raw_input("")
                 if (ruta == "salir"):
+                        sock.sendall("salir")
                         break
                 file = open("/home/sebastian95/Documents/GitHub/ContainerJobs/forest.jpg", "rb")
                 # Send data
@@ -29,10 +30,8 @@ while True:
                 print "Imagen enviada"
                 
                 file.close()
-                        #data = sock.recv(100)     
-                        #print data
-                #except IOError as e:
-                 #   if e.errno == errno.EPIPE:
-                  #      print "error"
+                #message = sock.recv(100)     
+                #print message
+                
         finally:
             sock.close()
